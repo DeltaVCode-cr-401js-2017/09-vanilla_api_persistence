@@ -1,4 +1,4 @@
-![cf](https://i.imgur.com/7v5ASc8.png) Lab 09: Vanilla REST API w/ Persistence
+![DV](https://www.deltavcodeschool.com/wp-content/uploads/DeltaV.png) Lab 09: Vanilla REST API w/ Persistence
 ======
 
 ## Submission Instructions
@@ -22,6 +22,10 @@
 * `README.md`
   * your `README.md` should include detailed instructions on how to use your API
   * this should include documentation on how to access your API endpoints
+
+Your `package.json` must include `scripts` for:
+* `lint`
+* `test`
 
 #### Feature Tasks
 * continue working on your vanilla REST API
