@@ -2,6 +2,9 @@
 const fs = require('fs');
 const path = require('path');
 
+const writeFileAsync = promisify(fs.writeFile);
+const readFileAsync = promisify(fs.readFile);
+
 module.exports = exports = {};
 
 function ensureDirectoryExistence(filePath) {
@@ -13,6 +16,18 @@ function ensureDirectoryExistence(filePath) {
   fs.mkdirSync(dirname);
 }
 
+function promisify (fn){
+  return (...args) =>{
+    return new Promise((resolve, reject) =>{
+      fn(...args,
+        (err, data)=>{
+          if(err) return reject(err);
+          resolve(data);
+        });
+    });
+  };
+}
+
 exports.createItem = function(schemaName, item) {
   if (!schemaName) return Promise.reject(new Error('expected schemaName'));
   if (!item) return Promise.reject(new Error('expected item'));
@@ -20,11 +35,10 @@ exports.createItem = function(schemaName, item) {
   const filepath =`${__dirname}/../data//${schemaName}/${item.id}.json`;
 
   ensureDirectoryExistence(filepath);
-  fs.writeFileSync(
-    filepath,
-    JSON.stringify(item));
 
-  return Promise.resolve(item);
+  return writeFileAsync(filepath, JSON.stringify(item))
+    .then(() => item);
+
 };
 
 
