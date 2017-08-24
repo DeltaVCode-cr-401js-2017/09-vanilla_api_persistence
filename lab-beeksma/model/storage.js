@@ -24,7 +24,7 @@ exports.fetchItem = function(schemaName, id) {
     if (!id){
       var idArray = [];
       for (var x in schema){
-        idArray.push(x.id);
+        idArray.push(schema[x].id);
       }
       resolve({ids: idArray});
     }

@@ -89,7 +89,7 @@ describe('Simple Resource', function (){
         .expect(200)
         .expect(res => {
           expect(res.body.ids).to.be.a('array');
-          expect(res.body.ids).to.not.be.empty;
+          expect(res.body.ids[0]).to.equal(note.id);
         })
         .end(done);
     });
