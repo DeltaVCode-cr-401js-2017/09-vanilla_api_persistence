@@ -21,11 +21,7 @@ exports.noteRoutes = function(router){
     storage.createItem(req.url.pathname, note)
       .then((item) => {
         console.log(item);
-        res.writeHead(200, {
-          'Content-Type': 'application/json'
-        });
-        res.write(JSON.stringify(item));
-        res.end();
+        response.sendJSON(res,200,item);
       })
       .catch(err => {
         res.writeHead(400, {
