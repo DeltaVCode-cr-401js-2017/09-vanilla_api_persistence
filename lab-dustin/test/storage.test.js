@@ -15,23 +15,23 @@ describe('storage',function(){
           done();
         });
     });
-    
+
   });
   describe('fetchItem()',function(){
     it('should fetch item',function(done){
       storage.fetchItem(schemaName,itemToSave.id)
-      .then(fetchedItem => {
-        expect(fetchedItem).to.deep.equal(itemToSave);
-        done();
-      })
-      .catch(done);
+        .then(fetchedItem => {
+          expect(fetchedItem).to.deep.equal(itemToSave);
+          done();
+        })
+        .catch(done);
     });
     it('should fail given missing schema',function(done){
       storage.fetchItem('missing',itemToSave.id)
-      .catch(err => {
-        expect(err).to.not.be.null;
-        done();
-      });
+        .catch(err => {
+          expect(err).to.not.be.null;
+          done();
+        });
     });
   });
 });

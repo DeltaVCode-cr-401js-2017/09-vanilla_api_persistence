@@ -38,10 +38,9 @@ exports.fetchItem = function(schemaName, id) {
   }
 
   return readFileAsync(filePath)
-  .then(data => {
-    return JSON.parse(data.toString());
-  });
-
+    .then(data => {
+      return JSON.parse(data.toString());
+    });
 };
 
 function promisify(func){

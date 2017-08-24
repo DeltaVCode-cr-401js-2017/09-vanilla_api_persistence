@@ -6,17 +6,15 @@ const { expect } = require('chai');
 
 describe('GET /', function(){
   it('should return routed', function(done){
-    request
-      .get('/')
-        .expect(200)
-        .expect('routed')
-        .expect('content-type', 'text/plain')
-        .end(done);
+    request.get('/')
+      .expect(200)
+      .expect('routed')
+      .expect('content-type', 'text/plain')
+      .end(done);
   });
 
   it('should return not found for missing path', function(done){
-    request
-      .get('/404')
+    request.get('/404')
       .expect(404)
       .expect('Not Found')
       .expect('content-type', 'text/plain')
@@ -24,8 +22,7 @@ describe('GET /', function(){
   });
 
   it('should return not found for POST missing path', function(done){
-    request
-      .post('/404')
+    request.post('/404')
       .expect(404)
       .expect('Not Found')
       .expect('content-type', 'text/plain')
@@ -38,8 +35,7 @@ describe('Simple Resource',function(){
 
   describe('POST /note',function(){
     it('should save the body',function(done){
-      request
-        .post('/note')
+      request.post('/note')
         .send({note: 'this is a note'})
         .expect(200)
         .expect(res => {
