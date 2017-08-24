@@ -10,7 +10,8 @@
   "scripts": {
     "test": "mocha",
     "start": "nodemon .",
-    "test:watch": "mocha -w"
+    "test:watch": "mocha -w",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
@@ -19,7 +20,10 @@
     "mocha": "^3.5.0",
     "nodemon": "^1.11.0",
     "superagent": "^3.6.0",
-    "supertest": "^3.0.0",
+    "supertest": "^3.0.0"
+  },
+  "dependencies": {
+    "eslint": "^4.5.0",
     "uuid": "^3.1.0"
   }
 }
