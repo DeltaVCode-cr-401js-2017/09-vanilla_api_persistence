@@ -6,8 +6,6 @@ const Router = require('./lib/router.js');
 const router = new Router();
 const { allRoutes } = require('./routes/dead.js');
 
-
-
 allRoutes(router);
 
 const server = http.createServer(router.route());

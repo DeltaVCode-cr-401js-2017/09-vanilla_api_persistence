@@ -5,41 +5,26 @@ const DeadCharacter = require('../model/simple-resource.js');
 const Router = require('../lib/router.js');
 const router = new Router();
 
+const response = require('../lib/response');
 
 
 exports.allRoutes = function (router){
   router.get('/', (req, res) =>{
-    res.writeHead(200, {
-      'Content-Type':'text/plain'
-    });
-    res.write('routed');
-    res.end();
+    response.sendText(res, 200, 'routed');
   });
 
   router.get('/api/dead', function(req, res) {
     if(req.url.query.id) {
       storage.fetchItem('character', req.url.query.id)
       .then(dead => {
-        res.writeHead(200, {
-          'Content-Type': 'application/json'
-        });
-        res.write(JSON.stringify(dead));
-        res.end();
+        response.sendJSON(res, 200, dead);
       }).catch(err => {
-        console.error(err);
-        res.writeHead(404, {
-          'Content-Type': 'text/plain'
-        });
-        res.write('person not found');
-        res.end();
+        console.log(err);
+        response.sendText(res, 404, 'person not found');
       });
       return;
     }
-    res.writeHead(400, {
-      'Content-Type': 'text/plain'
-    });
-    res.write('Bad Request');
-    res.end();
+    response.sendText(res, 400, 'Bad Request');
   });
 
   router.post('/api/dead', function(req, res){
@@ -54,11 +39,7 @@ exports.allRoutes = function (router){
       res.end();
     } catch(err) {
       console.error('server post', err);
-      res.writeHead(400, {
-        'Content-Type': 'plain/text'
-      });
-      res.write('bad request');
-      res.end();
+      response.sendText(res, 400, 'bad request');
     }
   });
 
@@ -73,28 +54,16 @@ exports.allRoutes = function (router){
         res.end();
       })
       .catch(err => {
+        response.sendText(res, 404, 'item not found');
         console.error(err);
-        res.writeHead(404, {
-          'Content-Type': 'text/plain'
-        });
-        res.write('item not found');
-        res.end();
       });
       return;
     }
-    res.writeHead(400, {
-      'Content-Type': 'text/plain'
-    });
-    res.write('Bad Request');
-    res.end();
+    response.sendText(res, 400, 'Bad Request');
   });
 };
 router.get('/', (req, res) =>{
-  res.writeHead(200, {
-    'Content-Type':'text/plain'
-  });
-  res.write('routed');
-  res.end();
+  response.sendText(res, 200, 'routed');
 });
 
 router.get('/api/dead', function(req, res) {
@@ -108,19 +77,11 @@ router.get('/api/dead', function(req, res) {
       res.end();
     }).catch(err => {
       console.error(err);
-      res.writeHead(404, {
-        'Content-Type': 'text/plain'
-      });
-      res.write('person not found');
-      res.end();
+      response.sendText(res, 404, 'person not found');
     });
     return;
   }
-  res.writeHead(400, {
-    'Content-Type': 'text/plain'
-  });
-  res.write('Bad Request');
-  res.end();
+  response.sendText(res, 400, 'Bad Request');
 });
 
 router.post('/api/dead', function(req, res){
@@ -135,11 +96,7 @@ router.post('/api/dead', function(req, res){
     res.end();
   } catch(err) {
     console.error('server post', err);
-    res.writeHead(400, {
-      'Content-Type': 'plain/text'
-    });
-    res.write('bad request');
-    res.end();
+    response.sendText(res, 400, 'bad request');
   }
 });
 
@@ -155,17 +112,9 @@ router.delete('/api/dead', function(req, res) {
     })
     .catch(err => {
       console.error(err);
-      res.writeHead(404, {
-        'Content-Type': 'text/plain'
-      });
-      res.write('item not found');
-      res.end();
+      response.sendText(res, 404, 'item not found');
     });
     return;
   }
-  res.writeHead(400, {
-    'Content-Type': 'text/plain'
-  });
-  res.write('Bad Request');
-  res.end();
+  response.sendText(res, 400, 'bad request');
 });
