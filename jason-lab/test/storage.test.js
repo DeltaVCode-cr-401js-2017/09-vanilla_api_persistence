@@ -25,7 +25,14 @@ describe('storage', function(){
       })
       .catch(done);
     });
-    //it('should fail on ')
+
+    it('should fail on missing id', function(done){
+      storage.fetchItem(schemaName, 'missing')
+      .catch(err=> {
+        expect(err).to.not.be.null;
+        done();
+      });
+    });
 
     it('should fail on missing schema', function(done){
       storage.fetchItem('missing', itemToSave.id)
