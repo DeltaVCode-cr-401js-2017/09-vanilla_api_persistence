@@ -3,7 +3,7 @@
 const { expect } = require('chai');
 const storage = require('../lib/storage.js');
 
-describe.only('storage', function(){
+describe('storage', function(){
   const schemaName = 'people';
   const itemToSave = {id:12, name:'jason'};
 
@@ -25,6 +25,7 @@ describe.only('storage', function(){
       })
       .catch(done);
     });
+    //it('should fail on ')
 
     it('should fail on missing schema', function(done){
       storage.fetchItem('missing', itemToSave.id)

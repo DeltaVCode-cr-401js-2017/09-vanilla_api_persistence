@@ -44,36 +44,29 @@ exports.createItem = function(schemaName, item) {
 
 
 exports.deleteItem = function(schemaName, id){
-  return new Promise((resolve, reject) => {
-    if (!schemaName) return reject(new Error('expected schema name'));
-    if (!id) return reject(new Error('expected id'));
 
-    var schema = storage[schemaName];
-    if (!schema) return reject(new Error('schema not found'));
+  if (!schemaName) return Promise.reject(new Error('expected schema name'));
+  if (!id) return Promise.reject(new Error('expected id'));
 
-    var item = schema[id];
-    if (!item) return reject(new Error('item not found'));
+  const filepath =`${__dirname}/../data//${schemaName}/${id}.json`;
+  if (!fs.existsSync(path.dirname(filepath)))
+    return Promise.reject(new Error('schema not found'));
 
-    delete storage[schemaName][id];
+  return Promise.resolve(fs.unlinkSync(filepath));
 
-    resolve('Deleted');
-  });
 };
 
 exports.fetchItem = function(schemaName, id) {
-  return new Promise((resolve, reject) => {
-    if (!schemaName) return reject(new Error('expected schema name'));
-    if (!id) return reject(new Error('expected id'));
 
-    const filepath =`${__dirname}/../data//${schemaName}/${id}.json`;
-    if (!fs.existsSync(path.dirname(filepath)))
-      return reject(new Error('schema not found'));
+  if (!schemaName) return Promise.reject(new Error('expected schema name'));
+  if (!id) return Promise.reject(new Error('expected id'));
 
-    var data = fs.readFileSync(filepath);
-    var item = JSON.parse(data.toString());
+  const filepath =`${__dirname}/../data//${schemaName}/${id}.json`;
+  if (!fs.existsSync(path.dirname(filepath)))
+    return Promise.reject(new Error('schema not found'));
 
-    resolve(item);
-
-    resolve(item);
-  });
+  return readFileAsync(filepath)
+    .then(data => {
+      return JSON.parse(data.toString());
+    });
 };
