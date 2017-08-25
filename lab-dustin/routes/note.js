@@ -12,6 +12,11 @@ exports.noteRoutes = function(router){
   const storage = {};
 
   router.post('/note',(req,res) => {
+    if (!req.body) {
+      res.writeHead(400);
+      res.write('Bad Request');
+      return res.end();
+    }
     let note = Object.assign({
       id: uuid.v1(),
     },req.body);
@@ -39,4 +44,9 @@ exports.noteRoutes = function(router){
 
   });
 
+  router.delete('/note',(req,res) => {
+    console.log(req.url.query);
+    console.log('delete requested');
+    response.sendText(res,204);
+  });
 };

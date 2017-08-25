@@ -5,7 +5,9 @@ module.exports = exports = {};
 exports.sendText = function(res,status,message){
   res.writeHead(status,
     {'content-type': 'text/plain'});
-  res.write(message);
+  if (message){
+    res.write(message);
+  }
   res.end();
 };
 

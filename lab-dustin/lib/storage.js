@@ -5,6 +5,7 @@ const fs = require('fs');
 
 const writeFileAsync = promisify(fs.writeFile);
 const readFileAsync = promisify(fs.readFile);
+const deleteFileAsync = promisify(fs.unlink);
 
 module.exports = exports = {};
 
@@ -40,6 +41,21 @@ exports.fetchItem = function(schemaName, id) {
   return readFileAsync(filePath)
     .then(data => {
       return JSON.parse(data.toString());
+    });
+};
+
+exports.deleteItem = function(schemaName, id){
+  if (!schemaName) return Promise.reject(new Error('expected a schemaName'));
+  if (!id) return Promise.reject(new Error('expected an identifier'));
+
+  const filePath = `${__dirname}/../data/${schemaName}/${id}.json`;
+  if (!fs.existsSync(path.dirname(filePath))){
+    return Promise.reject(new Error('no such file exists'));
+  }
+
+  return deleteFileAsync(filePath)
+    .then(() => {
+      return filePath;
     });
 };
 

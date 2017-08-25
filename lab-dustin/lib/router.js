@@ -6,7 +6,8 @@ const parseJSON = require('./parse-json');
 const Router = module.exports = function(){
   this.routes = {
     GET: {},
-    POST: {}
+    POST: {},
+    DELETE: {}
   };
 };
 
@@ -15,6 +16,9 @@ Router.prototype.get = function(path,callback){
 };
 Router.prototype.post = function(path,callback){
   this.routes.POST[path] = callback;
+};
+Router.prototype.delete = function(path,callback){
+  this.routes.DELETE[path] = callback;
 };
 
 

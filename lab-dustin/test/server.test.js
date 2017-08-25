@@ -45,7 +45,20 @@ describe('Simple Resource',function(){
           console.log('full note: ',note);
         })
         .end(done);
-
+    });
+    it('should return bad request if there was no body or if the request was invalid',function(done){
+      request.post('/note')
+        .send()
+        .expect(400)
+        .expect('Bad Request')
+        .end(done);
+    });
+    it('should return bad request if given invalid body',function(done){
+      request.post('/note')
+        .send('{json: "this is not json"}')
+        .expect(400)
+        .expect('Bad Request')
+        .end(done);
     });
   });
 
@@ -84,4 +97,11 @@ describe('Simple Resource',function(){
     });
   });
 
+  describe('DELETE /note',function(){
+    it('should return 204 No Content if it deleted the note',function(done){
+      request.delete(`/note?id=${note.id}`)
+        .expect(204)
+        .end(done);
+    });
+  });
 });

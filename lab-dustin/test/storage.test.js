@@ -1,7 +1,15 @@
 'use strict';
 
+var chaifs = require('chai');
+chaifs.use(require('chai-fs'));
+
+var chaistring = require('chai');
+chaistring.use(require('chai-string'));
+
 const { expect } = require('chai');
+const { path } = require('chai-fs');
 const storage = require('../lib/storage');
+const fs = require('fs');
 
 describe('storage',function(){
   const schemaName = 'people';
@@ -30,6 +38,19 @@ describe('storage',function(){
       storage.fetchItem('missing',itemToSave.id)
         .catch(err => {
           expect(err).to.not.be.null;
+          done();
+        });
+    });
+  });
+  const itemToDelete = itemToSave;
+  const deletedItem = '../data/people/13.json';
+  describe('deleteItem()',function(){
+    it('should not contain the note',function(done){
+      storage.deleteItem(schemaName,itemToDelete.id)
+        .then(returnItem => {
+          console.log(deletedItem);
+          expect(returnItem).to.endsWith(deletedItem);
+          expect(deletedItem).to.not.be.a.path();
           done();
         });
     });
