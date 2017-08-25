@@ -128,5 +128,10 @@ describe('Simple Resource', function (){
         })
         .end(done);
     });
+    it('should not find a note for the ID we just deleted', function (done){
+      request.get(`/note?id=${note.id}`)
+        .expect(400)
+        .end(done);
+    });
   });
 });
