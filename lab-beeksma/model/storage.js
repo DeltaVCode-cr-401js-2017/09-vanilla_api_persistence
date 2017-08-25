@@ -40,22 +40,6 @@ exports.createItem = function(schemaName, item) {
 
   return writeFileAsync(filePath, JSON.stringify(item))
     .then(() => item);
-
-  /*
-  return new Promise((resolve,reject) =>{
-    fs.writeFile(
-      filePath
-      ,JSON.stringify(item)
-      ,(err) => {
-        if(err) return reject(err);
-        resolve(item);
-      });
-  });
-*/
-
-  //if (!storage[schemaName]) storage[schemaName] = {};
-
-  //storage[schemaName][item.id] = item;
 };
 
 
@@ -72,11 +56,6 @@ exports.fetchItem = function(schemaName, id) {
     });
 
   /*
-  var data = fs.readFileSync(filePath);
-  var item = JSON.parse(data.toString());
-  resolve(item);
-  //if (!schema) return reject(new Error('schema not found'));
-
   if (!id){
     var idArray = [];
     for (var x in schema){

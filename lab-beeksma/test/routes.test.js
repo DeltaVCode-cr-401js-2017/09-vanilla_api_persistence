@@ -84,6 +84,12 @@ describe('Simple Resource', function (){
   });
 
   describe('GET /note', function (){
+    it('should return bad resuest if no ID sent', function (done){
+      request.get(`/note`)
+        .expect(400)
+        .end(done);
+    });
+    /*
     it('should return array of IDs in body if no ID sent', function (done){
       request.get(`/note`)
         .expect(200)
@@ -93,7 +99,7 @@ describe('Simple Resource', function (){
         })
         .end(done);
     });
-
+    */
     it('should return a note if ID supplied', function (done){
       request.get(`/note?id=${note.id}`)
         .expect(200)
@@ -109,6 +115,7 @@ describe('Simple Resource', function (){
     it('should return bad request if no ID sent', function (done){
       request.delete(`/note`)
         .expect(400)
+        //.expect('Bad Request : Error: expected id')
         .expect('content-type', 'text/plain')
         .end(done);
     });
