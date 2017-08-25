@@ -7,9 +7,8 @@ var chaistring = require('chai');
 chaistring.use(require('chai-string'));
 
 const { expect } = require('chai');
-const { path } = require('chai-fs');
+require('chai-fs');
 const storage = require('../lib/storage');
-const fs = require('fs');
 
 describe('storage',function(){
   const schemaName = 'people';
@@ -43,7 +42,7 @@ describe('storage',function(){
     });
   });
   const itemToDelete = itemToSave;
-  const deletedItem = '../data/people/13.json';
+  const deletedItem = '../data/people/12.json';
   describe('deleteItem()',function(){
     it('should not contain the note',function(done){
       storage.deleteItem(schemaName,itemToDelete.id)

@@ -1,4 +1,5 @@
 'use strict';
+const store = require('../lib/storage');
 const response = require('../lib/response');
 const uuid = require('uuid');
 
@@ -21,6 +22,7 @@ exports.noteRoutes = function(router){
       id: uuid.v1(),
     },req.body);
     storage[note.id] = note;
+    store.createItem('notes',note);
     console.log('note ',note);
 
     response.sendJSON(res,200,note);
